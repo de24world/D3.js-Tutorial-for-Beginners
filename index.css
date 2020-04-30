@@ -1,0 +1,9 @@
+#svg {
+  border: 1px solid black;
+  position: relative;
+}
+
+.bar {
+  background: blue;
+  position: absolute;
+}
