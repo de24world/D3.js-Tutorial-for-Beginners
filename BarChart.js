@@ -39,3 +39,10 @@ var xAxis = svg.append("g")
 .call(d3.axisBottom(xScale));
 
 // yAxis(y축 생성)
+var yAxisFn=d3.axisLeft(yScale);
+var yAxis=svg.append("g")
+    .classed("yAxis", true)
+    .attr(
+        'transform', 'translate('+padding.left+','+padding.top+')'
+    )
+    yAxisFn(yAxis);
