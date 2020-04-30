@@ -15,6 +15,9 @@ var salesData= [
 var svg=d3.select("#svg");
 
 var padding={top:20, right:30, bottom:30, left:50};
+
+// var colors=d3.schemeCategory20c;
+
 var chartArea={
     "width": parseInt(svg.style("width"))-padding.left-padding.right,
     "height": parseInt(svg.style("height"))-padding.top-padding.bottom
@@ -46,3 +49,35 @@ var yAxis=svg.append("g")
         'transform', 'translate('+padding.left+','+padding.top+')'
     )
     yAxisFn(yAxis);
+
+// 1000 단위 줄
+var grid=svg.append("g")
+.attr("class", "grid")
+.attr(
+    'transform', 'translate('+padding.left+','+padding.top+')'
+)
+.call(d3.axisLeft(yScale)
+    .tickSize(-(chartArea.width))
+    .tickFormat("")
+)
+
+// bars
+var rectGrp=svg.append("g").attr(
+    'transform', 'translate('+padding.left+','+padding.top+')'
+);
+
+rectGrp.selectAll("rect").data(salesData).enter()
+    .append("rect")
+    .attr("width", xScale.bandwidth())
+    .attr("height", function (d,i) {
+        return chartArea.height-yScale(d.Qty)
+    })
+    .attr("x", function (d,i) {
+        return xScale(d.Year);
+    })
+    .attr("y", function (d,i) {
+        return yScale(d.Qty);
+    })
+    // .attr("fill", function (d,i) {
+    //     return colors[i];
+    // })
